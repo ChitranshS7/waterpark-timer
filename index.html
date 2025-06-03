@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Parkkkkkkkkkk</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+    }
+
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #00f0ff;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeOut 2.5s ease-out forwards;
+    }
+
+    .splash-text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 15px #004d4d;
+      animation: pop 1.5s infinite ease-in-out;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; display: none; visibility: hidden; }
+    }
+
+    @keyframes pop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 0 0 10px #00e6e6;
+    }
+
+    .quote {
+      color: #ffe;
+      font-size: 1.1rem;
+      margin-top: 25px;
+      font-style: italic;
+      text-align: center;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+
+    .countdown {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .time-box {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid #00ffff;
+      padding: 15px 20px;
+      border-radius: 15px;
+      text-align: center;
+      min-width: 70px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+      backdrop-filter: blur(5px);
+      animation: pulse 2s infinite;
+    }
+
+    .time-box h2 {
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .time-box span {
+      font-size: 1rem;
+      color: #d1f3f3;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .time-box h2 {
+        font-size: 1.4rem;
+      }
+      .time-box span {
+        font-size: 0.9rem;
+      }
+      .quote {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div class="splash-screen">
+    <div class="splash-text">🌊 Splashing In... 💦</div>
+    <audio autoplay>
+      <source src="https://www.fesliyanstudios.com/play-mp3/6678" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- Background GIF -->
+  <img class="background" src="https://media1.tenor.com/m/PKJEzmR4Oa4AAAAC/ranma-ranma-one-half.gif" alt="Water Splash Background" />
+
+  <div class="overlay">
+    <h1>🌊 Water Parkkkkkkkkkk 🌞</h1>
+    <div class="countdown">
+      <div class="time-box">
+        <h2 id="days">0</h2>
+        <span>Days</span>
+      </div>
+      <div class="time-box">
+        <h2 id="hours">0</h2>
+        <span>Hours</span>
+      </div>
+      <div class="time-box">
+        <h2 id="minutes">0</h2>
+        <span>Minutes</span>
+      </div>
+      <div class="time-box">
+        <h2 id="seconds">0</h2>
+        <span>Seconds</span>
+      </div>
+    </div>
+    <p class="quote">Andi Mandi Sandi.... Jo cancel karne ki soch raha.... - "Simran Baalani"</p>
+  </div>
+
+  <script>
+    const targetDate = new Date("2025-06-08T09:00:00");
+    let firstNotificationShown = false;
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.querySelector(".countdown").innerHTML = "<h2 style='color:white;'>Let's Go! 🏄‍♂️</h2>";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+
+      if (Notification.permission === "granted") {
+        if (!firstNotificationShown) {
+          new Notification("Message from Simran Balani", {
+            body: "😂 cancel mat karna bhai, warna Simran tumhara phone pani mein daal degi!"
+          });
+          firstNotificationShown = true;
+        } else {
+          if ((hours % 6 === 0) && minutes === 0 && seconds === 0) {
+            new Notification("Message from Simran Balani", {
+              body: `💦 Only ${days}d ${hours}h ${minutes}m left! 🎢💙💧 Get ready for madness!`
+            });
+          }
+        }
+      }
+    }
+
+    function askNotificationPermission() {
+      if (Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            updateCountdown(); // Trigger immediate notification after granting
+          }
+        });
+      }
+    }
+
+    askNotificationPermission();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Remove splash screen after 2.5s
+    setTimeout(() => {
+      document.querySelector('.splash-screen').style.display = 'none';
+    }, 2500);
+  </script>
+</body>
+</html>
